@@ -1,0 +1,12 @@
+[project]
+name = "tgf-py"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "cryptg>=0.6.0",
+    "dotenv>=0.9.9",
+    "pillow>=12.2.0",
+    "telethon>=1.43.2",
+]
