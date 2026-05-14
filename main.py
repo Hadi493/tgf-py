@@ -13,9 +13,9 @@ api_hash = os.getenv('API_HASH')
 
 client = TelegramClient('cyber-green', api_id, api_hash)
 
-async def get_last_msg(channel_name):
+async def get_last_msg(channel_name{}):
     try:
-        entity = await client.get_entity(channel_name)
+        entity = await client.get_entity(channel_name{})
         async for msg in client.iter_messages(entity, limit=1):
             return msg
     except Exception as e:
@@ -50,7 +50,7 @@ async def main():
 
     while True:
         try:
-            new_msg = await get_last_msg("@CyberGreenNews")
+            new_msg = await get_last_msg({"@CyberGreenNews", "@SHADOWMAN997"})
 
             if new_msg:
                 print(f"[{datetime.datetime.now()}] Latest msg ID: {new_msg.id}")
