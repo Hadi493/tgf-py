@@ -77,25 +77,3 @@ if __name__ == '__main__':
     with client:
         client.loop.run_until_complete(main())
         client.run_until_disconnected()
-
-
-# PrevImplementation:
-
-# async def get_and_forward_last_msg(channel_name, destination='me'):
-#     try:
-#         source = await client.get_entity(channel_name)
-#         dest = await client.get_entity(destination)
-
-#         async for msg in client.iter_messages(source, limit=1):
-#             forwarded = await client.forward_messages(
-#                 entity=dest,
-#                 messages=msg.id,
-#                 from_peer=source
-#             )
-
-#             print(f"✓ Forwarded: {msg.id} → {forwarded.id}")
-#             return forwarded
-
-#     except Exception as e:
-#         print(f"Error: {e}")
-#         return None
