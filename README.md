@@ -7,3 +7,6 @@ Configure [.env](.env) first
 cp .env.example .env
 uv run main.py
 ```
+
+## License:
+This project is licensed under the [MIT License](LICENSE).
