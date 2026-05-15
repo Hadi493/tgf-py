@@ -10,10 +10,15 @@ load_dotenv()
 
 api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
-sleep_time = 5
-channels = ["@Channel1", "@channel1", "@channels3"]
+sleep_time = 0
+destination = 'yourDestinationChanneORID'
+channels = [
+    "@channel1",
+    "@channel2",
+    "@channel3"
+]
 
-client = TelegramClient('cyber-green', api_id, api_hash)
+client = TelegramClient('session-name', api_id, api_hash)
 
 async def get_last_msg(channels):
     try:
@@ -50,20 +55,21 @@ async def main():
     print("Starting....")
 
     current_msg_ids = []
+    current_msg_date = datetime.datetime.now(datetime.timezone.utc).strftime('%Y:%m:%d %H:%M')
     while True:
         try:
             new_msgs = await get_last_msg(channels)
             for new_msg in new_msgs:
                 print(new_msg)
                 if new_msg:
-                    print(f"[{datetime.datetime.now()}] Latest msg ID: {new_msg.id}")
-                    if new_msg.id not in current_msg_ids:
-                        print(f"New msg detected")
-                        print(f"   Text: {new_msg.text[:80] if new_msg.text else 'No text'}...")
-                        await forward_msg(new_msg, 'me')
+                    print(f"[{datetime.datetime.now(datetime.timezone.utc).strftime('%Y:%m:%d %H:%M')}]: Latest msg Date: {new_msg.date.strftime('%Y:%m:%d %H:%M')}\n")
+                    if new_msg.date.strftime('%Y:%m:%d %H:%M') in current_msg_date and new_msg.id not in current_msg_ids:
+                        print(f"New updated msg\n")
+                        print(f"   Text: {new_msg.text[:80] if new_msg.text else 'No text'}...\n")
+                        await forward_msg(new_msg, destination)
                         current_msg_ids.append(new_msg.id)
                     else:
-                        print("No new msg detected")
+                        print("No new msg detected\n")
                 await asyncio.sleep(sleep_time)
         except Exception as e:
             print(f"Error: {e}")
