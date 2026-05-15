@@ -10,13 +10,10 @@ load_dotenv()
 
 api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
-
 sleep_time = 5
+channels = ["@Channel1", "@channel1", "@channels3"]
 
 client = TelegramClient('cyber-green', api_id, api_hash)
-
-channels = ["@CyberGreenNews", "@SHADOWMAN997", "@SorwarAlam"]
-
 
 async def get_last_msg(channels):
     try:
