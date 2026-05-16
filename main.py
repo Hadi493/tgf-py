@@ -63,7 +63,7 @@ async def main():
                 print(new_msg)
                 if new_msg:
                     print(f"[{datetime.datetime.now(datetime.timezone.utc).strftime('%Y:%m:%d %H:%M')}]: Latest msg Date: {new_msg.date.strftime('%Y:%m:%d %H:%M')}\n")
-                    if new_msg.date.strftime('%Y:%m:%d %H:%M') in current_msg_date and new_msg.id not in current_msg_ids:
+                    if new_msg.date.strftime('%Y:%m:%d %H:%M') == current_msg_date and new_msg.id not in current_msg_ids:
                         print(f"New updated msg\n")
                         print(f"   Text: {new_msg.text[:80] if new_msg.text else 'No text'}...\n")
                         await forward_msg(new_msg, destination)
