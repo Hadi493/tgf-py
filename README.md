@@ -8,10 +8,9 @@ cp .env.example .env
 uv run main.py
 ```
 
-After 24h delete the `history.txt` file.
+After 24h delete the `history.txt` file for better performance.
 ```bash
 rm -f history.txt
-
 ```
 
 ## License:
