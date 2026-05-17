@@ -41,7 +41,6 @@ async def get_last_msg(channels):
         return None
     try:
         msgs = []
-        # for channel in channels:
         async for msg in client.iter_messages(channels, limit=5):
             msgs.append(msg)
         return msgs
@@ -76,7 +75,7 @@ async def main():
             current_msg_date = datetime.datetime.now(datetime.timezone.utc).strftime('%Y:%m:%d')
             tasks = [get_last_msg(channel) for channel in channels]
             results = await asyncio.gather(*tasks)
-            
+
             new_msgs = []
             for result in results:
                 if isinstance(result, list):
