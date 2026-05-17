@@ -8,6 +8,7 @@ wheels/
 *.session
 *.session-*
 local.main.*
+history.txt
 .env
 # Virtual environments
 .venv
