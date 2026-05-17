@@ -11,8 +11,11 @@ load_dotenv()
 api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
 history = 'history.txt'
+limit = 100
+catch_up = 0
 sleep_time = 10
-destination = 'me'
+destination = 'me' # or destination channel
+
 channels = [
     "@channel1",
     "@channel2",
@@ -41,7 +44,7 @@ async def get_last_msg(channels):
         return None
     try:
         msgs = []
-        async for msg in client.iter_messages(channels, limit=5):
+        async for msg in client.iter_messages(channels, limit=limit):
             msgs.append(msg)
         return msgs
     except Exception as e:
@@ -60,7 +63,7 @@ async def forward_msg(msg, dest):
             messages = msg.id,
             from_peer = msg.chat_id
         )
-        print(f"Forwarded msg ID: {msg.id}")
+        print(f"Forwarded from: {msg.chat.title} | {msg.chat.username}")
         return forwarded
     except Exception as e:
         print(f"Error: {e}")

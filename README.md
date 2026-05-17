@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Configure [.env](.env) first
+Configure [.env](.env) & [main](main.py) first.
 ```bash
 cp .env.example .env
 uv run main.py
