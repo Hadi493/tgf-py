@@ -1,4 +1,5 @@
 # TGF Telegram Feed
+An automated Telegram content forwarding bot that monitors multiple source channels and automatically forwards new messages to a single destination channel/account. It uses a tracking file to prevent duplicate forwarding and runs continuously in a loop.
 
 ## Quick Start
 
