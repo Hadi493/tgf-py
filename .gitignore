@@ -7,7 +7,7 @@ wheels/
 *.egg-info
 *.session
 *.session-*
-local/*
+local*
 Makefile
 history.txt
 .env

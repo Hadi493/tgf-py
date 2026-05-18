@@ -5,6 +5,10 @@ from telethon import utils
 from telethon.sync import TelegramClient, events
 from telethon.tl.functions.messages import GetHistoryRequest
 import asyncio
+import sys
+
+sys.path.append('/home/hadi/Programming/projects/tgf.py/local.py')
+import local as lists
 
 load_dotenv()
 
@@ -12,9 +16,10 @@ api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
 history = 'history.txt'
 limit = 100
-catch_up = 0
-sleep_time = 10
+# catch_up = 0 # TODO
+sleep_time = 10 # 10 sec
 destination = 'me' # or destination channel
+
 
 channels = [
     "@channel1",
@@ -64,6 +69,7 @@ async def forward_msg(msg, dest):
             from_peer = msg.chat_id
         )
         print(f"Forwarded from: {msg.chat.title} | {msg.chat.username}")
+        await asyncio.sleep(sleep_time)
         return forwarded
     except Exception as e:
         print(f"Error: {e}")
@@ -95,7 +101,6 @@ async def main():
                         save_history(new_msgs_key)
                     # else:
                     #     print("Monitoring...\n")
-            await asyncio.sleep(sleep_time)
         except Exception as e:
             print(f"Error: {e}")
             await asyncio.sleep(5)
