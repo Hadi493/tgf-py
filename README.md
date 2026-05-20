@@ -3,7 +3,7 @@ An automated Telegram content forwarding bot that monitors multiple source chann
 
 ## Quick Start
 
-Configure [.env](.env) & [main](main.py) first.
+Configure [.env](.env) & [config.py](config.py) first.
 ```bash
 cp .env.example .env
 uv run main.py

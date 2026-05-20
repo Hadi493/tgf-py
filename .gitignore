@@ -9,7 +9,7 @@ wheels/
 *.session-*
 local*
 Makefile
-history.txt
+history.*
 .env
 # Virtual environments
 .venv

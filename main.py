@@ -7,27 +7,22 @@ from telethon.tl.functions.messages import GetHistoryRequest
 import asyncio
 import sys
 
-sys.path.append('/home/hadi/Programming/projects/tgf.py/local.py')
-import local as lists
+sys.path.append('config.py')
+import config
 
 load_dotenv()
 
 api_id = os.getenv('API_ID')
 api_hash = os.getenv('API_HASH')
-history = 'history.txt'
-limit = 100
+history = config.history
+limit = config.limit
 # catch_up = 0 # TODO
-sleep_time = 10 # 10 sec
-destination = 'me' # or destination channel
+sleep_time = config.sleep_time
+destination = config.destination
+channels = config.channels
+session  = config.session
 
-
-channels = [
-    "@channel1",
-    "@channel2",
-    "@channel3"
-]
-
-client = TelegramClient('session-name', api_id, api_hash)
+client = TelegramClient(session, api_id, api_hash)
 
 def load_history():
     stored_keys = set()
