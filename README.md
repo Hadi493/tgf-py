@@ -1,9 +1,14 @@
 <div align="center">
-  <img src="tgf.png" alt="TGF Logo" width="150" style="border-radius: 50%; border: 4px solid #fff; box-shadow:0 4px 12px rgba(0,0,0,0.15);"/>
-  <h3>TGF</h3>
-  <p><strong>Telegram Feed:</strong> An automated Telegram content forwarding bot that monitors multiple source channels and automatically forwards new messages to a single destination channel/account. It uses a tracking file to prevent duplicate forwarding and runs continuously in a loop.</p>
-</div>
+  <img src="tgf.png" width="144" height="144" alt="TGF" />
+  <h1>TGF - Telegram Feed</h1>
 
+  <p><strong>Open-source Telegram content forwarding bot</strong></p>
+
+  <p>
+    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version" />
+    <img src="https://img.shields.io/badge/GPL-2.0 license" alt="license" />
+  </p>
+</div>
 
 ## Quick Start
 
