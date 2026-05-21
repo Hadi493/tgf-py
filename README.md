@@ -12,9 +12,14 @@
 
 ## Quick Start
 
-Configure [.env](.env) & [config.py](config.py) first.
 ```bash
+git clone https://github.com/Hadi493/tgf-py.git
+
+cd tgf-py
+
+# Configure [.env](.env) & [config.py](config.py) first.
 cp .env.example .env
+
 uv run main.py
 ```
 
