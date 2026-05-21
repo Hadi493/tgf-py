@@ -16,10 +16,15 @@
 git clone https://github.com/Hadi493/tgf-py.git
 
 cd tgf-py
+```
 
-# Configure [.env](.env) & [config.py](config.py) first.
+Configure [.env](.env) & [config.py](config.py).
+```bash
 cp .env.example .env
+```
 
+run
+```bash
 uv run main.py
 ```
 
