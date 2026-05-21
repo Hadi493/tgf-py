@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="tgf.png" alt="TGF Logo" width="100">
+  <img src="tgf.png" alt="TGF Logo" width="300">
 </div>
 
 # TGF Telegram Feed
