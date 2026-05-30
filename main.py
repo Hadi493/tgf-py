@@ -51,18 +51,36 @@ async def get_last_msg(channels):
         print(f"Error: {e}")
         return None
 
-async def forward_msg(msg, dest):
+async def forward_msg(msg, dest, reply_to=None):
     try:
         if not msg:
             print(msg)
             return None
 
         dest_entity = await client.get_entity(dest)
-        forwarded = await client.forward_messages(
-            entity = dest_entity,
-            messages = msg.id,
-            from_peer = msg.chat_id
-        )
+
+        # HACK: Its a very weird way to write like that
+        if msg.reply_to_msg_id:
+            original_msg = await client.get_messages(msg.chat_id, ids=msg.reply_to_msg_id)
+
+            forwarded_original = await client.forward_messages(
+                entity    = dest_entity,
+                messages  = msg.id,
+                from_peer = msg.chat_id
+            )
+
+            forwarded = await client.send_message(
+                entity   = dest_entity,
+                message  = msg.message,
+                reply_to = forwarded_original.id,
+                file     = msg.media if msg.media else None
+            )
+        else:
+            forwarded = await client.forward_messages(
+                entity    = dest_entity,
+                messages  = msg.id,
+                from_peer = msg.chat_id
+            )
         print(f"Forwarded from: {msg.chat.title} | {msg.chat.username}")
         await asyncio.sleep(sleep_time)
         return forwarded
