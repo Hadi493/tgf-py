@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="tgf.png" width="166" height="166" alt="TGF" />
+  <img src="tgf.png" width="166" height="144" alt="TGF" />
   <h1>TGF - Telegram Feed</h1>
 
   <p><strong>Open-source Telegram content forwarding bot</strong></p>
