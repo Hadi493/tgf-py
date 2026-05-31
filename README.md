@@ -34,4 +34,7 @@ rm -f history.txt
 ```
 
 ## License:
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [GNU GPLv2 License](LICENSE).
+
+## Contributing
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
