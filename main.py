@@ -1,8 +1,7 @@
 import os
 import datetime
 from dotenv import load_dotenv
-from telethon import utils
-from telethon.sync import TelegramClient, events
+from telethon import TelegramClient
 from telethon.tl.functions.messages import GetHistoryRequest
 import asyncio
 import sys
@@ -68,6 +67,8 @@ async def forward_msg(msg, dest, reply_to=None):
                 messages  = msg.id,
                 from_peer = msg.chat_id
             )
+            if isinstance(forwarded_original, list):
+                forwarded_original = forwarded_original[0]
 
             forwarded = await client.send_message(
                 entity   = dest_entity,
@@ -117,7 +118,7 @@ async def main():
         except Exception as e:
             print(f"Error: {e}")
             await asyncio.sleep(5)
-            return None
+            continue
 
 if __name__ == '__main__':
     with client:
