@@ -83,7 +83,7 @@ async def forward_album(msgs, dest):
         print(f"Error forwarding album: {e}")
         return None
 
-async def main():
+async def final_handler():
     print(f"Start monitoring {len(channels)} channels\n")
 
     current_msgs_keys = load_history()
@@ -129,6 +129,9 @@ async def main():
             print(f"Error: {e}")
             await asyncio.sleep(5)
             continue
+
+async def main():
+    await final_handler()
 
 if __name__ == '__main__':
     with client:
