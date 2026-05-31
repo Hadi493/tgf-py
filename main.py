@@ -50,43 +50,37 @@ async def get_last_msg(channels):
         print(f"Error: {e}")
         return None
 
-async def forward_msg(msg, dest, reply_to=None):
+async def forward_msg(msg, dest):
     try:
         if not msg:
-            print(msg)
             return None
-
         dest_entity = await client.get_entity(dest)
-
-        # HACK: Its a very weird way to write like that
-        if msg.reply_to_msg_id:
-            original_msg = await client.get_messages(msg.chat_id, ids=msg.reply_to_msg_id)
-
-            forwarded_original = await client.forward_messages(
-                entity    = dest_entity,
-                messages  = msg.id,
-                from_peer = msg.chat_id
-            )
-            if isinstance(forwarded_original, list):
-                forwarded_original = forwarded_original[0]
-
-            forwarded = await client.send_message(
-                entity   = dest_entity,
-                message  = msg.message,
-                reply_to = forwarded_original.id,
-                file     = msg.media if msg.media else None
-            )
-        else:
-            forwarded = await client.forward_messages(
-                entity    = dest_entity,
-                messages  = msg.id,
-                from_peer = msg.chat_id
-            )
+        forwarded = await client.forward_messages(
+            entity=dest_entity, messages=msg.id, from_peer=msg.chat_id
+        )
         print(f"Forwarded from: {msg.chat.title} | {msg.chat.username}")
         await asyncio.sleep(sleep_time)
         return forwarded
     except Exception as e:
         print(f"Error: {e}")
+        return None
+
+
+async def forward_album(msgs, dest):
+    try:
+        if not msgs:
+            return None
+        dest_entity = await client.get_entity(dest)
+        msg_ids = [m.id for m in msgs]
+        chat_id = msgs[0].chat_id
+        forwarded = await client.forward_messages(
+            entity=dest_entity, messages=msg_ids, from_peer=chat_id
+        )
+        print(f"Forwarded album ({len(msgs)} media) from: {msgs[0].chat.title} | {msgs[0].chat.username}")
+        await asyncio.sleep(sleep_time)
+        return forwarded
+    except Exception as e:
+        print(f"Error forwarding album: {e}")
         return None
 
 async def main():
@@ -106,15 +100,31 @@ async def main():
                         if msg is not None:
                             new_msgs.append(msg)
 
+            albums = {}
+            standalone = []
             for new_msg in new_msgs:
-                if new_msg:
-                    new_msgs_key = f"{new_msg.chat_id}_{new_msg.id}"
-                    if new_msg.date.strftime('%Y:%m:%d') == current_msg_date and new_msgs_key not in current_msgs_keys:
-                        await forward_msg(new_msg, destination)
-                        current_msgs_keys.add(new_msgs_key)
-                        save_history(new_msgs_key)
-                    # else:
-                    #     print("Monitoring...\n")
+                if not new_msg:
+                    continue
+                key = f"{new_msg.chat_id}_{new_msg.id}"
+                if new_msg.date.strftime('%Y:%m:%d') != current_msg_date or key in current_msgs_keys:
+                    continue
+                if new_msg.grouped_id:
+                    albums.setdefault((new_msg.chat_id, new_msg.grouped_id), []).append(new_msg)
+                else:
+                    standalone.append(new_msg)
+
+            for group in albums.values():
+                await forward_album(group, destination)
+                for msg in group:
+                    k = f"{msg.chat_id}_{msg.id}"
+                    current_msgs_keys.add(k)
+                    save_history(k)
+
+            for new_msg in standalone:
+                await forward_msg(new_msg, destination)
+                k = f"{new_msg.chat_id}_{new_msg.id}"
+                current_msgs_keys.add(k)
+                save_history(k)
         except Exception as e:
             print(f"Error: {e}")
             await asyncio.sleep(5)
